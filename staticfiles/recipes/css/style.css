@@ -1,0 +1,192 @@
+:root {
+    --bg: #f9f5f0;  /* Бежевый фон */
+    --text: #5a4a3f; /* Тёмно-коричневый текст */
+    --accent: #8d6e63; /* Коричневый акцент */
+    --border: #5a4a3f; /* Цвет обводки как у текста Dish */
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Georgia', serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+/* Центровка шапки */
+header {
+    background: #e6d5c3;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Стили для логотипа Dish */
+header h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 2.5rem;
+}
+
+header h1 a {
+    color: var(--text);
+    text-decoration: none;
+}
+
+/* Стили для навигации */
+nav {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Стили для кнопок */
+.nav-button {
+    color: var(--text);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--border); /* Обводка цвета текста */
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    background-color: transparent;
+}
+
+.nav-button:hover {
+    background-color: var(--accent);
+    color: white;
+    border-color: var(--accent);
+}
+
+/* Стили для основного содержимого */
+main {
+    margin: 0rem auto;
+}
+
+/* Стили для подвала */
+footer {
+    text-align: center;
+    padding: 1rem 0;
+    background: #e6d5c3;
+    margin-top: 2rem;
+}
+
+
+/* Стили для контейнера категорий */
+.categories-container {
+    width: 100%;
+    background-color: #97a086; /* Светло-бежевый фон */
+    padding: 1.5rem 0;
+    margin-bottom: 2rem;
+}
+
+.categories-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.category-item {
+    color: #f0e6d2;
+    text-decoration: none;
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90px;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+.category-item:hover {
+    transform: translateY(-5px);
+}
+
+.category-img-container {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #e6d5c3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: 0.3rem;
+    border: 1px solid #f0e6d2;
+}
+
+.category-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.category-item:hover .category-img {
+    transform: scale(1.05);
+}
+
+.category-name {
+    color: #f0e6d2;
+    text-align: center;
+    font-size: 0.9rem;
+    padding: 0.3rem 0;
+}
+
+.category-item:hover .category-name {
+    color: #5a4a3f;
+    font-weight: bold;
+}
+/* Стили для разделов контента */
+.content-section {
+    max-width: 1200px;
+    margin: 0 auto 2rem;
+    padding: 0 20px;
+}
+
+/* Стили для списка рецептов */
+.recipe-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.recipe-list li {
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid #e6d5c3;
+}
+
+.recipe-list a {
+    color: #5a4a3f;
+    transition: color 0.3s ease;
+}
+
+.recipe-list a:hover {
+    color: #8d6e63;
+}
+
+/* Стили для выделенных рецептов */
+.highlight-recipe {
+    font-weight: bold;
+    color: #5a4a3f;
+    transition: color 0.3s ease;
+}
+
+.highlight-recipe:hover {
+    color: #8d6e63;
+    text-decoration: underline;
+}

@@ -1,0 +1,51 @@
+{% extends 'recipes/base.html' %}
+{% load static %} 
+
+{% block content %}
+<div class="categories-container">
+    <div class="categories-list">
+        {% for category in categories %}
+            <a href="{% url 'category_detail' category.slug %}" class="category-item">
+                <div class="category-img-container">
+                    <img src="{% static 'recipes/img/categories/'|add:category.slug|add:'.png' %}" 
+                         alt="{{ category.name }}"
+                         class="category-img">
+                </div>
+                <span class="category-name">{{ category.name }}</span>
+            </a>
+        {% empty %}
+            <span class="category-item">Категорий пока нет.</span>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="content-section">
+    <h2>Рецепты</h2>
+    <ul class="recipe-list">
+        {% for recipe in recipes %}
+            <li>
+                {% if recipe.image %}
+                    <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" style="max-width: 400px;">
+                {% endif %} 
+                <a href="{% url 'recipe_detail' recipe.id %}">{{ recipe.title }}</a> — {{ recipe.created_at|date:"d.m.Y" }}
+            </li>
+        {% empty %}
+            <li>Рецептов пока нет.</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="content-section">
+    <h2>Рандомный рецепт</h2>
+    {% if random_recipe %}
+        <p><a href="{% url 'recipe_detail' random_recipe.id %}" class="highlight-recipe">{{ random_recipe.title }}</a></p>
+    {% endif %}
+</div>
+
+<div class="content-section">
+    <h2>Последний добавленный рецепт</h2>
+    {% if latest_recipe %}
+        <p><a href="{% url 'recipe_detail' latest_recipe.id %}" class="highlight-recipe">{{ latest_recipe.title }}</a></p>
+    {% endif %}
+</div>
+{% endblock %}

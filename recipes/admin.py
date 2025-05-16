@@ -2,7 +2,7 @@
 from django.contrib import admin
 from .models import Category, Recipe, Ingredient, RecipeIngredient, InstructionStep, Comment, Tag
 
-# Общий миксин для всех моделей с ForeignKey на Recipe
+
 class RecipeForeignKeyAdminMixin:
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == 'recipe':
@@ -33,9 +33,9 @@ class CommentAdmin(admin.ModelAdmin, RecipeForeignKeyAdminMixin):
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')
-    filter_horizontal = ('recipes',)  # Для удобного выбора рецептов
+    filter_horizontal = ('recipes',)  
 
-# Остальные модели регистрируем как есть
+
 admin.site.register(Category)
 admin.site.register(Recipe)
 admin.site.register(Ingredient)

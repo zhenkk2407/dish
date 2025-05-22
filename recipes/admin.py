@@ -46,7 +46,7 @@ class TagAdmin(admin.ModelAdmin):
 @admin.register(Ingredient)
 class IngredientAdmin(admin.ModelAdmin):
     search_fields = ['name'] 
-
+    
 @admin.register(Recipe)
 class RecipeAdmin(admin.ModelAdmin):
     search_fields = ['title']

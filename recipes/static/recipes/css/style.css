@@ -190,3 +190,17 @@ footer {
     color: #8d6e63;
     text-decoration: underline;
 }
+
+.recipe-tags {
+    margin-top: 5px;
+}
+
+.tag {
+    display: inline-block;
+    background-color: #f0f0f0;
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-right: 5px;
+    font-size: 0.8em;
+    color: #555;
+}

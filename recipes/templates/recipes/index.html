@@ -21,6 +21,7 @@
 
 <div class="content-section">
     <h2>Рецепты</h2>
+    <p>Всего рецептов: {{ recipe_count }}</p>
     <ul class="recipe-list">
         {% for recipe in recipes %}
             <li>
@@ -29,13 +30,18 @@
                 {% endif %} 
                 <br>
                 <a href="{% url 'recipe_detail' recipe.id %}">{{ recipe.title }}</a> — {{ recipe.created_at|date:"d.m.Y" }}
+              
+                <div class="recipe-tags">
+                    {% for tag in recipe.tag_set.all %}
+                        <span class="tag">{{ tag.name }}</span>
+                    {% endfor %}
+                </div>
             </li>
         {% empty %}
             <li>Рецептов пока нет.</li>
         {% endfor %}
     </ul>
 </div>
-
 
 <div class="content-section">
     <h2>Рандомный рецепт</h2>
@@ -44,6 +50,12 @@
             <img src="{{ random_recipe.image.url }}" alt="{{ random_recipe.title }}" style="max-width: 400px;">
         {% endif %}
         <p><a href="{% url 'recipe_detail' random_recipe.id %}" class="highlight-recipe">{{ random_recipe.title }}</a></p>
+      
+        <div class="recipe-tags">
+            {% for tag in random_recipe.tag_set.all %}
+                <span class="tag">{{ tag.name }}</span>
+            {% endfor %}
+        </div>
     {% endif %}
 </div>
 
@@ -54,6 +66,12 @@
             <img src="{{ latest_recipe.image.url }}" alt="{{ latest_recipe.title }}" style="max-width: 400px;">
         {% endif %}
         <p><a href="{% url 'recipe_detail' latest_recipe.id %}" class="highlight-recipe">{{ latest_recipe.title }}</a></p>
+        <!-- Теги для последнего рецепта -->
+        <div class="recipe-tags">
+            {% for tag in latest_recipe.tag_set.all %}
+                <span class="tag">{{ tag.name }}</span>
+            {% endfor %}
+        </div>
     {% endif %}
 </div>
 

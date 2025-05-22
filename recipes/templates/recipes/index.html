@@ -36,23 +36,25 @@
     </ul>
 </div>
 
+
 <div class="content-section">
     <h2>Рандомный рецепт</h2>
-    {% if recipe.image %}
-        <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" style="max-width: 400px;">
-    {% endif %} <br>
     {% if random_recipe %}
+        {% if random_recipe.image %}
+            <img src="{{ random_recipe.image.url }}" alt="{{ random_recipe.title }}" style="max-width: 400px;">
+        {% endif %}
         <p><a href="{% url 'recipe_detail' random_recipe.id %}" class="highlight-recipe">{{ random_recipe.title }}</a></p>
     {% endif %}
 </div>
 
 <div class="content-section">
     <h2>Последний добавленный рецепт</h2>
-    {% if recipe.image %}
-        <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" style="max-width: 400px;">
-    {% endif %} <br>
     {% if latest_recipe %}
+        {% if latest_recipe.image %}
+            <img src="{{ latest_recipe.image.url }}" alt="{{ latest_recipe.title }}" style="max-width: 400px;">
+        {% endif %}
         <p><a href="{% url 'recipe_detail' latest_recipe.id %}" class="highlight-recipe">{{ latest_recipe.title }}</a></p>
     {% endif %}
 </div>
+
 {% endblock %}

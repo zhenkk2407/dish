@@ -27,6 +27,7 @@
                 {% if recipe.image %}
                     <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" style="max-width: 400px;">
                 {% endif %} 
+                <br>
                 <a href="{% url 'recipe_detail' recipe.id %}">{{ recipe.title }}</a> — {{ recipe.created_at|date:"d.m.Y" }}
             </li>
         {% empty %}
@@ -37,6 +38,9 @@
 
 <div class="content-section">
     <h2>Рандомный рецепт</h2>
+    {% if recipe.image %}
+        <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" style="max-width: 400px;">
+    {% endif %} <br>
     {% if random_recipe %}
         <p><a href="{% url 'recipe_detail' random_recipe.id %}" class="highlight-recipe">{{ random_recipe.title }}</a></p>
     {% endif %}
@@ -44,6 +48,9 @@
 
 <div class="content-section">
     <h2>Последний добавленный рецепт</h2>
+    {% if recipe.image %}
+        <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" style="max-width: 400px;">
+    {% endif %} <br>
     {% if latest_recipe %}
         <p><a href="{% url 'recipe_detail' latest_recipe.id %}" class="highlight-recipe">{{ latest_recipe.title }}</a></p>
     {% endif %}

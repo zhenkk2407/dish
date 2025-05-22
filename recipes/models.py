@@ -27,7 +27,7 @@ class Recipe(models.Model):
         verbose_name_plural = 'Рецепты'
 
     def __str__(self):
-        return f"{self.id}: {self.title}"
+        return self.title
 
 class Ingredient(models.Model):
     name = models.CharField(max_length=100, verbose_name='Название')

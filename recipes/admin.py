@@ -13,10 +13,12 @@ class RecipeForeignKeyAdminMixin:
 class RecipeIngredientAdmin(admin.ModelAdmin, RecipeForeignKeyAdminMixin):
     list_display = ('id', 'recipe', 'ingredient', 'amount')
     list_select_related = ('recipe', 'ingredient')
+    raw_id_fields = ('recipe', 'ingredient')
 
 @admin.register(InstructionStep)
 class InstructionStepAdmin(admin.ModelAdmin, RecipeForeignKeyAdminMixin):
     list_display = ('id', 'recipe', 'step_number', 'short_step_text')
+    raw_id_fields = ('recipe',)
     
     def short_step_text(self, obj):
         return obj.step_text[:50] + '...' if len(obj.step_text) > 50 else obj.step_text
@@ -25,7 +27,8 @@ class InstructionStepAdmin(admin.ModelAdmin, RecipeForeignKeyAdminMixin):
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin, RecipeForeignKeyAdminMixin):
     list_display = ('id', 'recipe', 'author_name', 'short_text', 'created_at')
-    
+    raw_id_fields = ('recipe',)
+
     def short_text(self, obj):
         return obj.text[:50] + '...' if len(obj.text) > 50 else obj.text
     short_text.short_description = 'Text'
@@ -35,7 +38,14 @@ class TagAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')
     filter_horizontal = ('recipes',)  
 
+@admin.register(Ingredient)
+class IngredientAdmin(admin.ModelAdmin):
+    search_fields = ['name'] 
+
+@admin.register(Recipe)
+class RecipeAdmin(admin.ModelAdmin):
+    search_fields = ['title']
 
 admin.site.register(Category)
-admin.site.register(Recipe)
-admin.site.register(Ingredient)
+
+

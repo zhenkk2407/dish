@@ -20,18 +20,23 @@ class InstructionStepAdmin(admin.ModelAdmin, RecipeForeignKeyAdminMixin):
     list_display = ('id', 'recipe', 'step_number', 'short_step_text')
     raw_id_fields = ('recipe',)
     
+    @admin.display(description='Текст шага')
     def short_step_text(self, obj):
         return obj.step_text[:50] + '...' if len(obj.step_text) > 50 else obj.step_text
-    short_step_text.short_description = 'Step Text'
+    
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin, RecipeForeignKeyAdminMixin):
     list_display = ('id', 'recipe', 'author_name', 'short_text', 'created_at')
+    list_display_links = ('id', 'recipe')
     raw_id_fields = ('recipe',)
+    list_filter = ('created_at', 'recipe')
+    date_hierarchy = 'created_at'
+    readonly_fields = ('created_at',)
 
+    @admin.display(description='Текст комментария')
     def short_text(self, obj):
         return obj.text[:50] + '...' if len(obj.text) > 50 else obj.text
-    short_text.short_description = 'Text'
 
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):

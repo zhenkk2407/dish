@@ -2,6 +2,8 @@
 {% load static %} 
 
 {% block content %}
+
+
 <div class="categories-container">
     <div class="categories-list">
         {% for category in categories %}
@@ -18,7 +20,12 @@
         {% endfor %}
     </div>
 </div>
-
+<div class="content-section">
+    <form method="GET" action="{% url 'recipe_search' %}" class="search-form">
+        <input type="text" name="q" placeholder="Поиск рецептов..." value="{{ request.GET.q }}" class="search-input">
+        <button type="submit" class="search-button">Поиск</button>
+    </form>
+</div>
 <div class="content-section">
     <h2>Рецепты</h2>
     <p>Всего рецептов: {{ recipe_count }}</p>

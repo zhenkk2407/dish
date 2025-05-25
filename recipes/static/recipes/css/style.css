@@ -14,7 +14,6 @@ body {
     padding: 0;
 }
 
-/* Центровка шапки */
 header {
     background: #e6d5c3;
     padding: 1rem 0;
@@ -203,4 +202,38 @@ footer {
     margin-right: 5px;
     font-size: 0.8em;
     color: #555;
+}
+
+
+.search-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.search-input {
+    flex: 1;
+    padding: 10px 14px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.search-button {
+    background-color: #e6d5c3;
+    color: #5a4a3f;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+
+}
+
+.search-button:hover {
+    background-color: #d4c2af;
 }

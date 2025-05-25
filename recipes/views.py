@@ -1,6 +1,20 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Recipe, Category
+from django.db.models import Q
 
+def recipe_search(request):
+    query = request.GET.get('q', '')
+    results = []
+    if query:
+        results = Recipe.objects.filter(
+            Q(title__icontains=query) |
+            Q(description__icontains=query)
+        ).distinct()
+    
+    return render(request, 'recipes/search_results.html', {
+        'query': query,
+        'results': results
+    })
 
 def index(request):
     recipes = Recipe.objects.all().order_by('-created_at')

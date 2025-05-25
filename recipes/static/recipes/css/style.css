@@ -237,3 +237,8 @@ footer {
 .search-button:hover {
     background-color: #d4c2af;
 }
+
+.recipe-container {
+    padding: 0 40px;    
+    margin: 0 auto;
+}

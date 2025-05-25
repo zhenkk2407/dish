@@ -1,30 +1,58 @@
 {% extends 'recipes/base.html' %}
 {% load static %} 
 {% block content %}
-<h2>{{ recipe.title }}</h2>
+<div class="recipe-container">
+    <h2>{{ recipe.title }}</h2>
 
-<p>Дата публикации: {{ recipe.created_at|date:"d.m.Y" }}</p>
-<p>Время приготовления: {{ recipe.cook_time }} минут</p>
-<p>Категория: {{ recipe.category.name }}</p>
+    <p>Дата публикации: {{ recipe.created_at|date:"d.m.Y" }}</p>
+    <p>Время приготовления: {{ recipe.cook_time }} минут</p>
+    <p>Категория: {{ recipe.category.name }}</p>
 
-{% if recipe.image %}
-    <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" style="max-width: 400px;">
-{% endif %}
-<h3>Описание:</h3>
-<p>{{ recipe.description }}</p>
+    {% if recipe.image %}
+        <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" style="max-width: 400px;">
+    {% endif %}
+    <h3>Описание:</h3>
+    <p>{{ recipe.description }}</p>
 
-<h3>Ингредиенты:</h3>
-<ul>
-    {% for item in recipe.recipeingredient_set.all %}
-        <li>{{ item.ingredient.name }} — {{ item.amount }}</li>
-    {% endfor %}
-</ul>
+    <h3>Ингредиенты:</h3>
+    <ul>
+        {% for item in recipe.recipeingredient_set.all %}
+            <li>{{ item.ingredient.name }} — {{ item.amount }}</li>
+        {% endfor %}
+    </ul>
 
-<h3>Шаги приготовления:</h3>
-<ol>
-    {% for step in recipe.instructionstep_set.all|dictsort:"step_number" %}
-        <li>{{ step.step_text }}</li>
-    {% endfor %}
-</ol>
+    <h3>Шаги приготовления:</h3>
+    <ol>
+        {% for step in recipe.instructionstep_set.all|dictsort:"step_number" %}
+            <li>{{ step.step_text }}</li>
+        {% endfor %}
+    </ol>
+    <hr>
+    <h3>Комментарии:</h3>
 
-{% endblock %}
+    <!-- Список комментариев -->
+    <div id="comments">
+        {% for comment in recipe.comment_set.all %}
+            <div class="comment" style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
+                <p><strong>{{ comment.author_name }}</strong> ({{ comment.created_at|date:"d.m.Y H:i" }})</p>
+                <p>{{ comment.text }}</p>
+
+                <!-- Кнопки редактирования и удаления -->
+                <a href="{% url 'edit_comment' comment.id %}">Редактировать</a> |
+                <a href="{% url 'delete_comment' comment.id %}">Удалить</a>
+            </div>
+        {% empty %}
+            <p>Пока нет комментариев.</p>
+        {% endfor %}
+    </div>
+
+    <!-- Форма добавления нового комментария -->
+    <h4>Добавить комментарий:</h4>
+    <form action="{% url 'add_comment' recipe.id %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Добавить</button>
+    </form>
+    {% endblock %}
+
+</div>

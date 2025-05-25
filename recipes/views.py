@@ -1,6 +1,8 @@
-from django.shortcuts import render, get_object_or_404
-from .models import Recipe, Category
 from django.db.models import Q
+
+from django.shortcuts import get_object_or_404, redirect, render
+from .models import Recipe, Comment, Category
+from .forms import CommentForm
 
 def recipe_search(request):
     query = request.GET.get('q', '')
@@ -37,8 +39,36 @@ def category_detail(request, slug):
     recipes = Recipe.objects.filter(category=category).order_by('-created_at')
     return render(request, 'recipes/category_detail.html', {'category': category, 'recipes': recipes})
 
-def recipe_detail(request, id):
-    recipe = get_object_or_404(Recipe, id=id)
-    return render(request, 'recipes/recipe_detail.html', {'recipe': recipe})
+def recipe_detail(request, pk):
+    recipe = get_object_or_404(Recipe, id=pk)
+    form = CommentForm()  
+    return render(request, 'recipes/recipe_detail.html', {'recipe': recipe, 'form': form})
 
+def add_comment(request, recipe_id):
+    recipe = get_object_or_404(Recipe, id=recipe_id)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.recipe = recipe
+            comment.save()
+    return redirect('recipe_detail', pk=recipe.id)
 
+def edit_comment(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+    if request.method == 'POST':
+        form = CommentForm(request.POST, instance=comment)
+        if form.is_valid():
+            form.save()
+            return redirect('recipe_detail', pk=comment.recipe.id)
+    else:
+        form = CommentForm(instance=comment)
+    return render(request, 'recipes/edit_comment.html', {'form': form, 'comment': comment})
+
+def delete_comment(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+    recipe_id = comment.recipe.id
+    if request.method == 'POST':
+        comment.delete()
+        return redirect('recipe_detail', pk=recipe_id)
+    return render(request, 'recipes/delete_comment.html', {'comment': comment})

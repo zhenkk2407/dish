@@ -29,32 +29,34 @@
 <div class="content-section">
     <h2>Рецепты</h2>
     <p>Всего рецептов: {{ recipe_count }}</p>
-    <ul class="recipe-list">
-        {% for recipe in recipes %}
-            <li>
-                {% if recipe.image %}
-                    <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" style="max-width: 400px;">
-                {% endif %} 
-                <br>
-                <a href="{% url 'recipe_detail' recipe.id %}">{{ recipe.title }}</a> — {{ recipe.created_at|date:"d.m.Y" }}
-              
-                <div class="recipe-tags">
-                    {% for tag in recipe.tag_set.all %}
-                        <span class="tag">{{ tag.name }}</span>
-                    {% endfor %}
-                </div>
-            </li>
-        {% empty %}
-            <li>Рецептов пока нет.</li>
-        {% endfor %}
-    </ul>
+   
+    <div class="recipe-grid">
+    {% for recipe in recipes %}
+        <div class="recipe-card">
+            {% if recipe.image %}
+                <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}"  class="recipe-img">
+            {% endif %}
+            <br>
+            <a href="{% url 'recipe_detail' recipe.id %}">{{ recipe.title }}</a> — {{ recipe.created_at|date:"d.m.Y" }}
+            <div class="recipe-tags">
+                {% for tag in recipe.tag_set.all %}
+                    <span class="tag">{{ tag.name }}</span>
+                {% endfor %}
+            </div>
+        </div>
+    {% empty %}
+        <p>Рецептов пока нет.</p>
+    {% endfor %}
+</div>
+
+
 </div>
 
 <div class="content-section">
     <h2>Рандомный рецепт</h2>
     {% if random_recipe %}
         {% if random_recipe.image %}
-            <img src="{{ random_recipe.image.url }}" alt="{{ random_recipe.title }}" style="max-width: 400px;">
+            <img src="{{ random_recipe.image.url }}" alt="{{ random_recipe.title }}" class="recipe-img">
         {% endif %}
         <p><a href="{% url 'recipe_detail' random_recipe.id %}" class="highlight-recipe">{{ random_recipe.title }}</a></p>
       
@@ -70,7 +72,7 @@
     <h2>Последний добавленный рецепт</h2>
     {% if latest_recipe %}
         {% if latest_recipe.image %}
-            <img src="{{ latest_recipe.image.url }}" alt="{{ latest_recipe.title }}" style="max-width: 400px;">
+            <img src="{{ latest_recipe.image.url }}" alt="{{ latest_recipe.title }}" class="recipe-img">
         {% endif %}
         <p><a href="{% url 'recipe_detail' latest_recipe.id %}" class="highlight-recipe">{{ latest_recipe.title }}</a></p>
         <!-- Теги для последнего рецепта -->

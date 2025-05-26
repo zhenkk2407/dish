@@ -31,6 +31,7 @@ header h1 {
     margin: 0;
     padding: 0;
     font-size: 2.5rem;
+    color: red;
 }
 
 header h1 a {
@@ -158,24 +159,41 @@ footer {
 }
 
 /* Стили для списка рецептов */
-.recipe-list {
-    list-style-type: none;
-    padding: 0;
+.recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 0; /* эквивалентно .recipe-list */
+    list-style-type: none; /* на случай, если где-то всё ещё используется <ul> */
 }
 
-.recipe-list li {
+.recipe-card {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+
+    /* Перенесённые стили из .recipe-list li: */
     margin-bottom: 0.8rem;
     padding-bottom: 0.8rem;
     border-bottom: 1px solid #e6d5c3;
 }
 
-.recipe-list a {
+/* Цвет и поведение ссылок внутри карточек */
+.recipe-card a {
     color: #5a4a3f;
     transition: color 0.3s ease;
 }
 
-.recipe-list a:hover {
+.recipe-card a:hover {
     color: #8d6e63;
+}
+
+.recipe-img {
+    width: 100%;
+    height: 200px; /* или 250px, на твой вкус */
+    object-fit: cover;
+    border-radius: 8px;
 }
 
 /* Стили для выделенных рецептов */
